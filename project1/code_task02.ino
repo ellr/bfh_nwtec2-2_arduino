@@ -7,7 +7,6 @@
 // 
 // Made by rog ellenberger
 // License: CC-BY-SA 3.0
-// Downloaded from: https://123d.circuits.io/circuits/1762969-nwtec2-2-project-1
 
 // libraries
 #include <avr/interrupt.h>
