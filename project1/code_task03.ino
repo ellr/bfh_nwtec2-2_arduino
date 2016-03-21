@@ -23,7 +23,7 @@ float voltage = 0.0;
 void setup() {
   // init fast PWM
   TCCR0A = 131;
-  TCCR0B = 3;
+  TCCR0B = 5;
   
   // initialize serial communications at 9600 bps:
   Serial.begin(9600);
@@ -31,41 +31,63 @@ void setup() {
   pinMode(outPin, OUTPUT);
   
   // wait 5 sec that users have time to open serial monitor
-  delay(5000);
   // display that programm starts
-  Serial.println("start");
+  
+  
+  
   
   
   // set OCR0A as needed (0 - 255)
-  OCR0A = 0;
-  
-  // set count-register (0 - 255)
+  OCR0A = 8;
+  // set count-register (0 - 255) 
   TCNT0 = 55;
   
-  int i;
   
-  for (i = 0; i <= 255; i++) {
-    messure_in_pin();
-    
-    // set OCR0A as needed (0 - 255)
-    OCR0A++;
-  }
 }
 
 void loop() {
-
+  
+  delay(1000);
+  
+  unsigned int time[32];
+  unsigned int value[32];
+  int i=0;
+  
+  for (; i < 33; i++) {
+    time[i] = micros();
+    value[i] = analogRead(inPin);
+  }
+  
+  unsigned int maxval = 0;
+  unsigned int minval= 1024;
+  unsigned int sum;
+  unsigned int avg;
+  
+  for (i=0; i<33; i++) {
+    if (value[i] > maxval) {
+      maxval = value[i];
+    }
+    if (value[i] < minval) {
+      minval = value[i];
+    }
+    
+    sum = sum + value[i];
+  }
+  avg = sum / 128;
+  
+  
+  Serial.print(OCR0A);
+  Serial.print(",");
+  Serial.print(maxval);
+  Serial.print(",");
+  Serial.print(minval);
+  Serial.print(",");
+  Serial.println(avg);
+  
+  OCR0A = OCR0A + 8;
+  
+  
+  
 }
 
-void messure_in_pin() {
-  // print out time elapsed since start (in ms)
-  Serial.print(millis());
-  // print semicolon for csv export
-  Serial.print(";");
-  // read the input on analog pin 0:
-  sensorValue = analogRead(inPin);
-  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
-  voltage = sensorValue * (5.0 / 1023.0);
-  // print out the value you read:
-  Serial.println(voltage);
-}
 
