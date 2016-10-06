@@ -13,3 +13,20 @@ Visualize the discharging of the capacitor. The code snippet for project 1 mesur
 Both taks are very similar. The only difference is the clock rate for the pwm pin. In task 3 it is much slower. That make it behave diffrently.
 
 Starting with t1 = 8, the code snippet mesures the voltage on the capacitor over a short time periode and increases afterwards t1 by 8. t1's range is from 0 to 255.
+
+## project 2
+no solution
+
+
+## project 3
+Main topic: Capacitor
+
+### Task 1
+Calculations only (see solution)
+
+### Task 2, 3 and 4
+Only one script needed for all tasks. All tasks use the same basic setup. Only the diagrams are different for each task.
+
+
+## project 4
+no solution
